@@ -2,16 +2,7 @@
 
 // 1. ADD META BOX
 function its_add_about_meta_box() {
-    global $post;
-
-    // Only add if $post exists
-    if ( isset($post->ID) ) {
-        $template = get_page_template_slug($post->ID);
-        if ($template !== 'page-about.php') {
-            return; // exit, only show on about template
-        }
-    }
-
+    // Add meta box to all pages
     add_meta_box(
         'its_about_meta_box',
         'About Section',
@@ -23,10 +14,15 @@ function its_add_about_meta_box() {
 }
 add_action('add_meta_boxes', 'its_add_about_meta_box');
 
-
 // 2. DISPLAY FIELDS
 function its_about_meta_box_callback($post) {
+    // Check template
+    $template = get_page_template_slug($post->ID);
 
+    if ($template !== 'page-about.php') {
+        echo '<p>This meta box only works with the About Page template. Please select the template from Page Attributes.</p>';
+        return;
+    }
     // Security nonce
     wp_nonce_field('its_save_about_meta_box', 'its_about_meta_box_nonce');
 
