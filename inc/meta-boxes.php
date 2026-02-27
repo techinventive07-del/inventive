@@ -1,53 +1,91 @@
 <?php
-// Register Meta Boxes
-add_filter( 'rwmb_meta_boxes', 'my_custom_meta_boxes' );
 
-function my_custom_meta_boxes( $meta_boxes ) {
-
-    $meta_boxes[] = array(
-        'title'      => 'About Page Fields',
-        'id'         => 'about_page_fields',
-        'post_types' => 'page',
-
-        // Show ONLY on About page
-        'include' => array(
-            'template' => array( 'page-about.php' ),
-        ),
-
-        'fields' => array(
-
-            array(
-                'name' => 'Heading',
-                'id'   => 'about_heading',
-                'type' => 'text',
-            ),
-
-            array(
-                'name' => 'Description',
-                'id'   => 'about_description',
-                'type' => 'textarea',
-            ),
-
-            array(
-                'name' => 'Image',
-                'id'   => 'about_image',
-                'type' => 'single_image',
-            ),
-
-            array(
-                'name' => 'Button Text',
-                'id'   => 'about_button_text',
-                'type' => 'text',
-            ),
-
-            array(
-                'name' => 'Button Link',
-                'id'   => 'about_button_link',
-                'type' => 'url',
-            ),
-
-        ),
+// 1. ADD META BOX
+function its_add_about_meta_box() {
+    add_meta_box(
+        'its_about_meta_box',
+        'About Section',
+        'its_about_meta_box_callback',
+        'page', // post type
+        'normal',
+        'high'
     );
-
-    return $meta_boxes;
 }
+add_action('add_meta_boxes', 'its_add_about_meta_box');
+
+
+// 2. DISPLAY FIELDS
+function its_about_meta_box_callback($post) {
+
+    // Security nonce
+    wp_nonce_field('its_save_about_meta_box', 'its_about_meta_box_nonce');
+
+    // Get existing values
+    $heading = get_post_meta($post->ID, '_about_heading', true);
+    $description = get_post_meta($post->ID, '_about_description', true);
+    $button_text = get_post_meta($post->ID, '_about_button_text', true);
+    $button_link = get_post_meta($post->ID, '_about_button_link', true);
+
+    ?>
+
+    <p>
+        <label><strong>Heading</strong></label><br>
+        <input type="text" name="about_heading" value="<?php echo esc_attr($heading); ?>" style="width:100%;">
+    </p>
+
+    <p>
+        <label><strong>Description</strong></label><br>
+        <textarea name="about_description" rows="5" style="width:100%;"><?php echo esc_textarea($description); ?></textarea>
+    </p>
+
+    <p>
+        <label><strong>Button Text</strong></label><br>
+        <input type="text" name="about_button_text" value="<?php echo esc_attr($button_text); ?>" style="width:100%;">
+    </p>
+
+    <p>
+        <label><strong>Button Link</strong></label><br>
+        <input type="url" name="about_button_link" value="<?php echo esc_attr($button_link); ?>" style="width:100%;">
+    </p>
+
+    <?php
+}
+
+
+// 3. SAVE DATA (SECURE)
+function its_save_about_meta_box($post_id) {
+
+    // Check nonce
+    if (!isset($_POST['its_about_meta_box_nonce']) || 
+        !wp_verify_nonce($_POST['its_about_meta_box_nonce'], 'its_save_about_meta_box')) {
+        return;
+    }
+
+    // Prevent autosave overwrite
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+
+    // Check permission
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    // Save fields
+    if (isset($_POST['about_heading'])) {
+        update_post_meta($post_id, '_about_heading', sanitize_text_field($_POST['about_heading']));
+    }
+
+    if (isset($_POST['about_description'])) {
+        update_post_meta($post_id, '_about_description', sanitize_textarea_field($_POST['about_description']));
+    }
+
+    if (isset($_POST['about_button_text'])) {
+        update_post_meta($post_id, '_about_button_text', sanitize_text_field($_POST['about_button_text']));
+    }
+
+    if (isset($_POST['about_button_link'])) {
+        update_post_meta($post_id, '_about_button_link', esc_url_raw($_POST['about_button_link']));
+    }
+}
+add_action('save_post', 'its_save_about_meta_box');
