@@ -44,3 +44,5 @@ if (file_exists($meta_boxes_file)) {
     });
     
 }
+
+require get_template_directory() . '/inc/meta-boxes-dummy.php';
