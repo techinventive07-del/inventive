@@ -2,21 +2,21 @@
 
 // 1. ADD META BOX
 function its_add_about_meta_box() {
-      global $post;
+    global $post;
 
-    // Check if page template is "page-about.php"
+    // Only add if $post exists
     if ( isset($post->ID) ) {
         $template = get_page_template_slug($post->ID);
-
         if ($template !== 'page-about.php') {
-            return;
+            return; // exit, only show on about template
         }
     }
+
     add_meta_box(
         'its_about_meta_box',
         'About Section',
         'its_about_meta_box_callback',
-        'page', // post type
+        'page',
         'normal',
         'high'
     );
