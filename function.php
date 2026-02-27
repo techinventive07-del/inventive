@@ -1,12 +1,12 @@
 <?php
-// Prevent direct access
-if (!defined('ABSPATH')) {
-    exit;
-}
+/**
+ * Inventive Theme Functions
+ */
 
-// TEMPORARY: Disable all caching for development
-define('WP_CACHE', false);
+// TEST: Check if file loads
+add_action('admin_notices', function() {
+    echo '<div class="notice notice-success"><p>✅ functions.php is loading!</p></div>';
+});
 
-
-
-define('INVENTIVE_VERSION', '1.0.0');
+// Include meta boxes
+require_once get_template_directory() . '/inc/meta-boxes.php';
