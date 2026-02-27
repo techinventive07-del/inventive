@@ -1,3 +1,9 @@
+
+<?php
+/*
+Template Name: About Page
+*/
+?>
 <?php
 
 $heading = get_post_meta(get_the_ID(), '_about_heading', true);
