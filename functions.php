@@ -1,20 +1,15 @@
 <?php
-/**
- * Inventive Tech Solution Theme Functions
- */
 
-// Prevent direct access
-if (!defined('ABSPATH')) {
-    exit;
-}
+// LOAD GLOBAL CSS & JS
+function inventive_enqueue_assets() {
 
-  // 1. style.css (required)
+    // 1. style.css (required)
     wp_enqueue_style(
         'theme-style',
         get_stylesheet_uri()
     );
 
-    // 2. main global CSS
+    // 2. main CSS
     wp_enqueue_style(
         'main-style',
         get_template_directory_uri() . '/assets/css/main.css',
@@ -30,10 +25,14 @@ if (!defined('ABSPATH')) {
         '1.0',
         true
     );
+}
+
+// Hook correctly
+add_action('wp_enqueue_scripts', 'inventive_enqueue_assets');
 
 
-add_action('wp_enqueue_scripts', 'its_enqueue_styles');
 
+// LOAD ABOUT PAGE CSS
 function inventive_about_assets() {
 
     if (is_page('about')) {
@@ -54,4 +53,6 @@ function inventive_about_assets() {
         );
     }
 }
+
+// Hook correctly
 add_action('wp_enqueue_scripts', 'inventive_about_assets');
