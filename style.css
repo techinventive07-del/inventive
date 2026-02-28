@@ -7,6 +7,68 @@ Author URI: https://prashantkkhanal.com.np/
 Description: Inventive Tech Solution is a IT company that is focused on providing the affordable services and growing the business with the organic traffic with the help of SEO and AISEO. We are providing the services like SEO, AISEO.
 Version: 1.0
 License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: inventive-tech-solution
-
+Tags: custom, inventive, solution, tech, technology, IT, company, services, SEO, AISEO, premium theme, light, dark, responsive, clean, modern, business, corporate
 */
+
+/* ABOUT PAGE */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.about-hero {
+    padding: 100px 0;
+    text-align: center;
+    background: #111;
+    color: #fff;
+}
+
+.about-hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.about-hero p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 12px 30px;
+    background: #ff4a17;
+    color: #fff;
+    text-decoration: none;
+}
+
+.about-content {
+    padding: 80px 0;
+}
+
+.about-grid {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.about-text {
+    flex: 1;
+}
+
+.about-image {
+    flex: 1;
+}
+
+.about-image img {
+    width: 100%;
+}
+
+.about-cta {
+    padding: 80px 0;
+    text-align: center;
+    background: #f5f5f5;
+}

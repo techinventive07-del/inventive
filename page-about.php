@@ -1,32 +1,55 @@
-
 <?php
 /*
 Template Name: About Page
 */
-?>
-<?php
-
-$heading = get_post_meta(get_the_ID(), '_about_heading', true);
-$description = get_post_meta(get_the_ID(), '_about_description', true);
-$button_text = get_post_meta(get_the_ID(), '_about_button_text', true);
-$button_link = get_post_meta(get_the_ID(), '_about_button_link', true);
-
+get_header();
 ?>
 
-<section class="about-section">
+<main>
 
-    <?php if ($heading): ?>
-        <h2><?php echo esc_html($heading); ?></h2>
-    <?php endif; ?>
+    <!-- HERO SECTION -->
+    <section class="about-hero">
+        <div class="container">
+            <h1>About Us</h1>
+            <p>We help businesses grow with smart digital solutions.</p>
+            <a href="#" class="btn-primary">Book a Call</a>
+        </div>
+    </section>
 
-    <?php if ($description): ?>
-        <p><?php echo esc_html($description); ?></p>
-    <?php endif; ?>
 
-    <?php if ($button_text && $button_link): ?>
-        <a href="<?php echo esc_url($button_link); ?>">
-            <?php echo esc_html($button_text); ?>
-        </a>
-    <?php endif; ?>
+    <!-- ABOUT CONTENT -->
+    <section class="about-content">
+        <div class="container">
 
-</section>
+            <div class="about-grid">
+
+                <div class="about-text">
+                    <h2>Who We Are</h2>
+                    <p>
+                        We are a creative agency focused on delivering high-quality
+                        websites and digital experiences that drive real results.
+                        Our team combines design, development, and strategy.
+                    </p>
+                </div>
+
+                <div class="about-image">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/about.jpg" alt="About us">
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- CTA SECTION -->
+    <section class="about-cta">
+        <div class="container">
+            <h2>Ready to work with us?</h2>
+            <a href="#" class="btn-primary">Get Started</a>
+        </div>
+    </section>
+
+</main>
+
+<?php get_footer(); ?>
