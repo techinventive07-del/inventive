@@ -1,0 +1,21 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* container */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+/* buttons */
+button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    background: #1e3a8a;
+    color: white;
+    font-size: 16px;
+}
